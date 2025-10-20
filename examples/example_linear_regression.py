@@ -1,4 +1,4 @@
-from sigil import LinearRegression
+from sigil.linear import LinearRegression
 import numpy as np
 import time
 
