@@ -3,12 +3,29 @@ name = "sigil"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-authors = [
-    { name = "lczm", email = "zemingchua@gmail.com" }
-]
+authors = [{ name = "lczm", email = "zemingchua@gmail.com" }]
 requires-python = ">=3.13"
 dependencies = []
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sigil"]
+include = ["src/sigil/py.typed"]
+
+[tool.hatch.build.targets.sdist]
+exclude = ["/.github", "/examples", "/tests", "/scripts"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-q"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+]
