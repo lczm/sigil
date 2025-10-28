@@ -1,4 +1,4 @@
-from sigil.linear import LinearRegression
+from sigil.quadratic import QuadraticRegression
 import matplotlib.pyplot as plt
 import numpy as np
 import time
@@ -6,15 +6,15 @@ import time
 if __name__ == "__main__":
     # Sample data (1 feature)
     start = time.time()
-    X = np.array([[1], [3], [2], [5]])
-    y = np.array([3, 5, 7, 9])
+    X = np.array([[1], [3], [2], [5], [7], [9], [10]])
+    y = np.array([3, 5, 7, 9, 15, 19, 23])
 
     # Train model
-    model = LinearRegression()
+    model = QuadraticRegression()
     model.fit(X, y)
 
     # Predictions on new data
-    z = np.array([[5], [6]])
+    z = np.array([[5], [6], [13]])
     predictions = model.predict(z)
     end = time.time()
 
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     plt.plot(x_line, y_line, color="green", label="Regression line")
 
 
-    plt.title("Linear Regression Example")
+    plt.title("Quadratic Regression Example")
     plt.xlabel("Feature 1 (One Dimension)")
     plt.ylabel("Target")
     plt.legend()

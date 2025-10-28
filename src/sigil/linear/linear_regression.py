@@ -1,7 +1,7 @@
+from sigil.models import BaseRegressionModel
 import numpy as np
 
-
-class LinearRegression():
+class LinearRegression(BaseRegressionModel):
     """
     Implementation of Linear Regression using Gradient Descent.
 
@@ -62,19 +62,23 @@ class LinearRegression():
             self.weights -= self.learning_rate * dw
             self.bias -= self.learning_rate * db
 
-    def predict(self, X: np.ndarray) -> np.ndarray:
+    def predict(self, input_data: np.ndarray) -> np.ndarray:
         """
         Predict target values using the trained Linear Regression model.
         - X = Input features (n dimension structure)
         Returns predicted target values.
         """
+        # If model is not trained, raise error
+        if self.weights is None:
+            raise RuntimeError("Model has not been trained yet. Please call 'fit' before 'predict'.")
+
         # The number of features in X should match the number of weights
-        if X.shape[1] != len(self.weights):
+        if input_data.shape[1] != len(self.weights):
             raise ValueError("Number of features in input data must match number of weights.")
 
         # Basically it does this
         # y_predicted = w1*x1 + w2*x2 + ... + wn*xn + bias
-        y_predicted = np.dot(X, self.weights) + self.bias
+        y_predicted = np.dot(input_data, self.weights) + self.bias
         return y_predicted
 
 
