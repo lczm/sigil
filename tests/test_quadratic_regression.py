@@ -1,4 +1,4 @@
-from sigil.quadratic import QuadraticRegression
+from sigil.linear import QuadraticRegression
 import pytest
 import numpy as np
 

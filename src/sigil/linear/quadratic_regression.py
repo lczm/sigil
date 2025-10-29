@@ -1,7 +1,7 @@
-from sigil.models import BaseRegressionModel
+from sigil.models import BaseModel
 import numpy as np
 
-class QuadraticRegression(BaseRegressionModel):
+class QuadraticRegression(BaseModel):
     """
     Implementation of Quadratic Regression using Gradient Descent.
     Basic idea: y = ax^2 + bx + c

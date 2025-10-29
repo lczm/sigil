@@ -1,4 +1,4 @@
-from sigil.quadratic import QuadraticRegression
+from sigil.linear import QuadraticRegression
 import matplotlib.pyplot as plt
 import numpy as np
 import time

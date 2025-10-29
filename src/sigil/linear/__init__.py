@@ -1,1 +1,2 @@
 from .linear_regression import LinearRegression
+from .quadratic_regression import QuadraticRegression

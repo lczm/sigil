@@ -1,7 +1,7 @@
-from sigil.models import BaseRegressionModel
+from sigil.models import BaseModel
 import numpy as np
 
-class LinearRegression(BaseRegressionModel):
+class LinearRegression(BaseModel):
     """
     Implementation of Linear Regression using Gradient Descent.
 
