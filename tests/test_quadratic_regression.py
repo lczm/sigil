@@ -1,4 +1,4 @@
-from sigil.linear import LinearRegression
+from sigil.linear import QuadraticRegression
 import pytest
 import numpy as np
 
@@ -6,7 +6,7 @@ def test_linear_regression_shape():
     X = np.random.rand(100, 2)  # 100 samples, 2 features
     y = np.random.rand(100) 
 
-    model = LinearRegression()
+    model = QuadraticRegression()
     model.fit(X, y)
 
     # Make predictions on another set of data with SAME dimensions
@@ -22,7 +22,7 @@ def test_valid_output():
     X = np.array([[1, 2], [2, 3], [3, 4], [4, 5]])
     y = np.array([3, 5, 7, 9])
 
-    model = LinearRegression()
+    model = QuadraticRegression()
     model.fit(X, y)
 
     z = np.array([[5, 6], [6, 7]])  # Valid input for prediction
@@ -37,7 +37,7 @@ def test_shape_mismatch():
     X = np.array([[1, 2], [2, 3], [3, 4], [4, 5]])
     y = np.array([3, 5, 7, 9])
 
-    model = LinearRegression()
+    model = QuadraticRegression()
     model.fit(X, y)
 
     z_invalid = np.array([[5, 6, 7], [6, 7, 8]])  # Invalid shape
@@ -46,9 +46,8 @@ def test_shape_mismatch():
         model.predict(z_invalid)
 
 def test_not_trained():
-    model = LinearRegression()
+    model = QuadraticRegression()
     z = np.array([[1, 2], [3, 4]])
 
     with pytest.raises(RuntimeError):
         model.predict(z)
-
