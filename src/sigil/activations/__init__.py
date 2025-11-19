@@ -1,1 +1,1 @@
-from .sigmoid import sigmoid
+from .sigmoid import sigmoid as sigmoid

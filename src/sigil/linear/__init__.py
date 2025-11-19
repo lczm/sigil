@@ -1,3 +1,3 @@
-from .linear_regression import LinearRegression
-from .quadratic_regression import QuadraticRegression
-from .logistic_regression import LogisticRegression
+from .linear_regression import LinearRegression as LinearRegression
+from .quadratic_regression import QuadraticRegression as QuadraticRegression
+from .logistic_regression import LogisticRegression as LogisticRegression
