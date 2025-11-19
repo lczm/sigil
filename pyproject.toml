@@ -29,6 +29,7 @@ addopts = "-q"
 
 [dependency-groups]
 dev = [
+    "jupyterlab>=4.5.0",
     "matplotlib>=3.10.7",
     "pytest>=8.4.2",
     "ruff>=0.14.5",
