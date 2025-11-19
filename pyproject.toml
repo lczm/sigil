@@ -31,4 +31,5 @@ addopts = "-q"
 dev = [
     "matplotlib>=3.10.7",
     "pytest>=8.4.2",
+    "ty>=0.0.1a27",
 ]
