@@ -29,10 +29,9 @@ if __name__ == "__main__":
     # Then we use the model to predict y values for these points, then draw the line
     minimum_value = min(min(X), min(z))
     maximum_value = max(max(X), max(z))
-    x_line = np.linspace(minimum_value, maximum_value, 100).reshape(-1,1)
+    x_line = np.linspace(minimum_value, maximum_value, 100).reshape(-1, 1)
     y_line = model.predict(x_line)
     plt.plot(x_line, y_line, color="green", label="Regression line")
-
 
     plt.title("Quadratic Regression Example")
     plt.xlabel("Feature 1 (One Dimension)")
@@ -41,4 +40,4 @@ if __name__ == "__main__":
     plt.show()
 
     print("Predictions:", predictions)
-    print(f"Time taken: {end-start:.2f}")
+    print(f"Time taken: {end - start:.2f}")

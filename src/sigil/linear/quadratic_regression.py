@@ -3,6 +3,7 @@ from tqdm import tqdm
 from typing import Optional
 import numpy as np
 
+
 class QuadraticRegression(BaseModel):
     """
     Implementation of Quadratic Regression using Gradient Descent.
@@ -18,7 +19,7 @@ class QuadraticRegression(BaseModel):
         - n_features = Features are the number of dimensions in each data point
         - n_samples = Samples are the number of data points
 
-        
+
         The mean and std are stored to apply the same scaling in the predict method when used in the fit method
         """
 
@@ -38,7 +39,7 @@ class QuadraticRegression(BaseModel):
         - y = Target values (1 dimension structure)
         """
         # Add squared features: [x, x²]
-        # Essentially, if is the original set is 
+        # Essentially, if is the original set is
         # [ 1 ]
         # [ 2 ]
         # [ 3 ]
@@ -76,7 +77,9 @@ class QuadraticRegression(BaseModel):
 
         # If model is not trained, raise error
         if self.weights is None:
-            raise RuntimeError("Model has not been trained yet. Please call 'fit' before 'predict'.")
+            raise RuntimeError(
+                "Model has not been trained yet. Please call 'fit' before 'predict'."
+            )
 
         # Scale input data using the mean and std from training
         input_data_scaled = (input_data - self.mean) / self.std
@@ -85,19 +88,20 @@ class QuadraticRegression(BaseModel):
         input_data_quad = np.column_stack((input_data_scaled, input_data_scaled**2))
 
         if input_data_quad.shape[1] != len(self.weights):
-            raise ValueError("Number of features in input data must match number of weights.")
+            raise ValueError(
+                "Number of features in input data must match number of weights."
+            )
 
         return np.dot(input_data_quad, self.weights) + self.bias
 
     def step(self, X: np.ndarray, y: np.ndarray) -> None:
         if self.weights is None or self.bias is None or self.n_iterations <= 0:
-            raise RuntimeError("Model has not been trained yet. Please call 'fit' before 'step'.")
+            raise RuntimeError(
+                "Model has not been trained yet. Please call 'fit' before 'step'."
+            )
 
         y_predicted = np.dot(X, self.weights) + self.bias
         dw = (2 / self.n_samples) * np.dot(X.T, (y_predicted - y))
         db = (2 / self.n_samples) * np.sum(y_predicted - y)
         self.weights -= self.learning_rate * dw
         self.bias -= self.learning_rate * db
-
-
-

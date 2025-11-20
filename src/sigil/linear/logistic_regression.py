@@ -4,6 +4,7 @@ from typing import Optional
 from tqdm import tqdm
 import numpy as np
 
+
 class LogisticRegression(BaseModel):
     def __init__(self, learning_rate=0.01, n_iterations=1000) -> None:
         self.learning_rate = learning_rate
@@ -12,7 +13,7 @@ class LogisticRegression(BaseModel):
         self.bias: Optional[float] = None
         self.n_features: int
         self.n_samples: int
- 
+
     def fit(self, X: np.ndarray, y: np.ndarray) -> None:
         self.n_samples, self.n_features = X.shape
         self.weights = np.zeros(self.n_features)
@@ -20,13 +21,15 @@ class LogisticRegression(BaseModel):
 
         for _ in tqdm(range(self.n_iterations)):
             self.step(X, y)
-    
+
     def predict(self, input_data: np.ndarray) -> np.ndarray:
         """
         predict binary labels (0 or 1) for the given input
         """
         if self.weights is None or self.bias is None:
-            raise RuntimeError("Model has not been trained yet. Please call 'fit' before 'predict'.")
+            raise RuntimeError(
+                "Model has not been trained yet. Please call 'fit' before 'predict'."
+            )
 
         # handle multiple dimensions
         # if input_data is 1D, reshape to 2D
@@ -38,9 +41,11 @@ class LogisticRegression(BaseModel):
 
         return (y_predicted >= 0.5).astype(int)
 
-    def step(self, X:np.ndarray, y:np.ndarray) -> None:
+    def step(self, X: np.ndarray, y: np.ndarray) -> None:
         if self.weights is None or self.bias is None or self.n_iterations <= 0:
-            raise RuntimeError("Model has not been trained yet. Please call 'fit' before 'step'.")
+            raise RuntimeError(
+                "Model has not been trained yet. Please call 'fit' before 'step'."
+            )
 
         # logistic regression and linear regression are similar in implementation
         # logistic regression just runs through sigmoid after computing
@@ -51,4 +56,3 @@ class LogisticRegression(BaseModel):
         db = (1 / self.n_samples) * np.sum(y_predicted - y)
         self.weights -= self.learning_rate * dw
         self.bias -= self.learning_rate * db
-

@@ -2,9 +2,10 @@ from sigil.linear import LinearRegression
 import pytest
 import numpy as np
 
+
 def test_linear_regression_shape():
     X = np.random.rand(100, 2)  # 100 samples, 2 features
-    y = np.random.rand(100) 
+    y = np.random.rand(100)
 
     model = LinearRegression()
     model.fit(X, y)
@@ -17,6 +18,7 @@ def test_linear_regression_shape():
     assert isinstance(predictions, np.ndarray)
     # The input samples should match the output predicted samples
     assert predictions.shape[0] == z.shape[0]
+
 
 def test_valid_output():
     X = np.array([[1, 2], [2, 3], [3, 4], [4, 5]])
@@ -33,6 +35,7 @@ def test_valid_output():
     assert predictions.shape[0] == z.shape[0]
     assert np.allclose(predictions, np.array([11, 13]), atol=1e-1)
 
+
 def test_shape_mismatch():
     X = np.array([[1, 2], [2, 3], [3, 4], [4, 5]])
     y = np.array([3, 5, 7, 9])
@@ -45,12 +48,14 @@ def test_shape_mismatch():
     with pytest.raises(ValueError):
         model.predict(z_invalid)
 
+
 def test_not_trained():
     model = LinearRegression()
     z = np.array([[1, 2], [3, 4]])
 
     with pytest.raises(RuntimeError):
         model.predict(z)
+
 
 def test_step_not_fit():
     model = LinearRegression()
