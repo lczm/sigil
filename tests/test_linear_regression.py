@@ -52,3 +52,11 @@ def test_not_trained():
     with pytest.raises(RuntimeError):
         model.predict(z)
 
+def test_step_not_fit():
+    model = LinearRegression()
+
+    X = np.array([[1, 2], [2, 3], [3, 4], [4, 5]])
+    y = np.array([3, 5, 7, 9])
+
+    with pytest.raises(RuntimeError):
+        model.step(X, y)
