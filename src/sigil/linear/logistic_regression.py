@@ -14,10 +14,22 @@ class LogisticRegression(BaseModel):
         self.n_features: int
         self.n_samples: int
 
-    def fit(self, X: np.ndarray, y: np.ndarray) -> None:
+    def build(self, X: np.ndarray, **kwargs) -> None:
         self.n_samples, self.n_features = X.shape
-        self.weights = np.zeros(self.n_features)
-        self.bias = 0
+
+        if "initial_weights" in kwargs:
+            self.weights = kwargs["initial_weights"]
+        else:
+            self.weights = np.zeros(self.n_features)
+
+        if "initial_bias" in kwargs:
+            self.bias = kwargs["initial_bias"]
+        else:
+            self.bias = 0.0
+
+    def fit(self, X: np.ndarray, y: np.ndarray) -> None:
+        if self.weights is None or self.bias is None:
+            self.build(X)
 
         for _ in tqdm(range(self.n_iterations)):
             self.step(X, y)
