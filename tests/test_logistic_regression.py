@@ -39,3 +39,12 @@ def test_not_trained():
 
     with pytest.raises(RuntimeError):
         model.predict(z)
+
+def test_step_not_fit():
+    model = LogisticRegression()
+
+    X = np.array([[1, 2], [2, 3], [3, 4], [4, 5]])
+    y = np.array([0, 1, 0, 1])
+
+    with pytest.raises(RuntimeError):
+        model.step(X, y)

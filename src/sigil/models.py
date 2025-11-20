@@ -11,3 +11,10 @@ class BaseModel(ABC):
     def predict(self, input_data: np.ndarray) -> np.ndarray:
         """Method to predict target values for given input data."""
         pass
+
+    @abstractmethod
+    def step(self, X: np.ndarray, y: np.ndarray) -> None:
+        """Method to perform a step in the training process."""
+        pass
+    
+
