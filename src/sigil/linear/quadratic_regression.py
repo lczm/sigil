@@ -25,12 +25,32 @@ class QuadraticRegression(BaseModel):
 
         self.learning_rate = learning_rate
         self.n_iterations = n_iterations
+
         self.weights: Optional[np.ndarray] = None
         self.bias: Optional[float] = None
         self.n_features: int
         self.n_samples: int
-        self.mean = None
-        self.std = None
+        self.mean: Optional[np.ndarray] = None
+        self.std: Optional[np.ndarray] = None
+
+    def build(self, X: np.ndarray, **kwargs) -> None:
+        self.n_samples, self.n_features = X.shape
+
+        self.mean = X.mean(axis=0)
+        self.std = X.std(axis=0)
+
+        # Since we are adding squared terms, we need to double the number of features
+        self.n_features *= 2
+
+        if "initial_weights" in kwargs:
+            self.weights = kwargs["initial_weights"]
+        else:
+            self.weights = np.zeros(self.n_features)
+
+        if "initial_bias" in kwargs:
+            self.bias = kwargs["initial_bias"]
+        else:
+            self.bias = 0.0
 
     def fit(self, X: np.ndarray, y: np.ndarray) -> None:
         """
@@ -54,15 +74,11 @@ class QuadraticRegression(BaseModel):
         # Mean = (2+4+6)/3 = 4
         # X - X.mean(axis=0) = [-2, 0, 2]
         # Dividing by std dev scales it to between [-1, 1], this prevents the values from being too large.
-        X_scaled = (X - X.mean(axis=0)) / X.std(axis=0)
+        if self.weights is None or self.bias is None:
+            self.build(X)
+
+        X_scaled = (X - self.mean) / self.std
         X_poly = np.column_stack((X_scaled, X_scaled**2))
-
-        self.n_samples, self.n_features = X_poly.shape
-
-        self.weights = np.zeros(self.n_features)
-        self.bias = 0
-        self.mean = X.mean(axis=0)
-        self.std = X.std(axis=0)
 
         # The principle is the same as linear regression, but we work with the expanded feature set
         for _ in tqdm(range(self.n_iterations)):
@@ -76,7 +92,7 @@ class QuadraticRegression(BaseModel):
         """
 
         # If model is not trained, raise error
-        if self.weights is None:
+        if self.weights is None or self.bias is None:
             raise RuntimeError(
                 "Model has not been trained yet. Please call 'fit' before 'predict'."
             )
