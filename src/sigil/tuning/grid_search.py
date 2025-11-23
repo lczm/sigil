@@ -6,7 +6,10 @@ import numpy as np
 
 class GridSearch:
     def __init__(
-        self, model: Type[BaseModel], param_grid: Dict[str, List[Any]], cv: int = 5,
+        self,
+        model: Type[BaseModel],
+        param_grid: Dict[str, List[Any]],
+        cv: int = 5,
     ) -> None:
         """
         Initialize the GridSearch with a model, parameter grid, and number of cross-validation folds.
@@ -27,7 +30,9 @@ class GridSearch:
         keys, values = zip(*self.param_grid.items())
         combinations = [dict(zip(keys, v)) for v in itertools.product(*values)]
         if not combinations:
-            raise ValueError("param_grid must contain at least one parameter to search over.")
+            raise ValueError(
+                "param_grid must contain at least one parameter to search over."
+            )
 
         for combination in combinations:
             score = self._cross_validate(X, y, combination)

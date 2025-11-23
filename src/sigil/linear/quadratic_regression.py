@@ -23,7 +23,9 @@ class QuadraticRegression(BaseModel):
         The mean and std are stored to apply the same scaling in the predict method when used in the fit method
         """
         if kwargs:
-            raise ValueError(f"Unknown parameter(s) for QuadraticRegression: {list(kwargs.keys())}")
+            raise ValueError(
+                f"Unknown parameter(s) for QuadraticRegression: {list(kwargs.keys())}"
+            )
 
         self.learning_rate = learning_rate
         self.n_iterations = n_iterations

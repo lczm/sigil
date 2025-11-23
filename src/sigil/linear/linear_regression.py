@@ -31,7 +31,9 @@ class LinearRegression(BaseModel):
         """
 
         if kwargs:
-            raise ValueError(f"Unknown parameter(s) for LinearRegression: {list(kwargs.keys())}")
+            raise ValueError(
+                f"Unknown parameter(s) for LinearRegression: {list(kwargs.keys())}"
+            )
 
         self.learning_rate = learning_rate
         self.n_iterations = n_iterations

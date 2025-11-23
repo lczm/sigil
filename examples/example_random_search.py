@@ -9,15 +9,15 @@ X = 2 * np.random.rand(100, 1)
 Y = ((3 * X) + 10 + noise).flatten()
 
 params = {
-        "discrete": {
-            "learning_rate": [0.01, 0.03, 0.1, 0.3],
-            "n_iterations": [500, 1000, 5000],
-            },
-        "continuous": {
-            "learning_rate": (0.0, 0.5),
-            "n_iterations": (500, 5000),
-            }
-        }
+    "discrete": {
+        "learning_rate": [0.01, 0.03, 0.1, 0.3],
+        "n_iterations": [500, 1000, 5000],
+    },
+    "continuous": {
+        "learning_rate": (0.0, 0.5),
+        "n_iterations": (500, 5000),
+    },
+}
 
 for key, values in params.items():
     print(f"Random search with {key} parameters:")

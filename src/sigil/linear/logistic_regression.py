@@ -7,9 +7,10 @@ import numpy as np
 
 class LogisticRegression(BaseModel):
     def __init__(self, learning_rate=0.01, n_iterations=1000, **kwargs) -> None:
-    
         if kwargs:
-            raise ValueError(f"Unknown parameter(s) for LogisticRegression: {list(kwargs.keys())}")
+            raise ValueError(
+                f"Unknown parameter(s) for LogisticRegression: {list(kwargs.keys())}"
+            )
 
         self.learning_rate = learning_rate
         self.n_iterations = n_iterations

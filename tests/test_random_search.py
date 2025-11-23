@@ -18,8 +18,9 @@ def test_random_search_discrete():
     random_search = RandomSearch(LinearRegression, params, cv=5)
     random_search.fit(X, Y)
 
-    assert( isinstance(random_search.best_params, dict))
-    assert( isinstance(random_search.best_score, float))
+    assert isinstance(random_search.best_params, dict)
+    assert isinstance(random_search.best_score, float)
+
 
 def test_random_search_continuous():
     noise = np.random.randn(100, 1)
@@ -35,8 +36,9 @@ def test_random_search_continuous():
     random_search = RandomSearch(LinearRegression, params, cv=5)
     random_search.fit(X, Y)
 
-    assert( isinstance(random_search.best_params, dict))
-    assert( isinstance(random_search.best_score, float))
+    assert isinstance(random_search.best_params, dict)
+    assert isinstance(random_search.best_score, float)
+
 
 def test_random_search_invalid_params():
     noise = np.random.randn(100, 1)
@@ -47,12 +49,13 @@ def test_random_search_invalid_params():
     params = {
         "learning_rate": [0.01, 0.03, 0.1, 0.3],
         "n_iterations": [500, 1000, 3000],
-        "invalid_param": [1, 2, 3]
+        "invalid_param": [1, 2, 3],
     }
 
     with pytest.raises(ValueError):
         random_search = RandomSearch(LinearRegression, params, cv=5)
         random_search.fit(X, Y)
+
 
 def test_random_search_no_params():
     noise = np.random.randn(100, 1)
@@ -65,6 +68,7 @@ def test_random_search_no_params():
     with pytest.raises(ValueError):
         random_search = RandomSearch(LinearRegression, params, cv=5)
         random_search.fit(X, Y)
+
 
 def test_random_search_invalid_range():
     noise = np.random.randn(100, 1)
