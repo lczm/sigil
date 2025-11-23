@@ -21,7 +21,7 @@ class LinearRegression(BaseModel):
         - predict(X) = predicts the target values for given input data
     """
 
-    def __init__(self, learning_rate=0.01, n_iterations=1000) -> None:
+    def __init__(self, learning_rate=0.01, n_iterations=1000, **kwargs) -> None:
         """
         Initialize the Linear Regression model with learning rate and number of iterations.
         - learning_rate = How fast the model learns
@@ -29,6 +29,9 @@ class LinearRegression(BaseModel):
         - n_features = Features are the number of dimensions in each data point
         - n_samples = Samples are the number of data points
         """
+
+        if kwargs:
+            raise ValueError(f"Unknown parameter(s) for LinearRegression: {list(kwargs.keys())}")
 
         self.learning_rate = learning_rate
         self.n_iterations = n_iterations

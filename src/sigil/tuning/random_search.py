@@ -37,6 +37,8 @@ class RandomSearch:
 
     def fit(self, X: np.ndarray, y: np.ndarray) -> None:
         keys = list(self.param_distributions.keys())
+        if not keys:
+            raise ValueError("param_distributions must contain at least one parameter to search over.")
 
         for _ in range(self.n_iter):
             combination = {}
