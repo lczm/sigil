@@ -11,7 +11,7 @@ class QuadraticRegression(BaseModel):
     Principles are the same as linear regression, but we introduce squared terms to capture non-linear relationships.
     """
 
-    def __init__(self, learning_rate=0.01, n_iterations=1000, **kwargs) -> None:
+    def __init__(self, learning_rate:float=0.01, n_iterations:int=1000, **kwargs) -> None:
         """
         Initialize the Quadratic Regression model with learning rate and number of iterations.
         - learning_rate = How fast the model learns

@@ -1,5 +1,6 @@
 from sigil.models import BaseModel
-from typing import Any, Dict, List, Type, Union
+from sigil.distributions import Distribution
+from typing import Any, Dict, Sequence, List, Type, Union
 import numpy as np
 
 
@@ -8,11 +9,11 @@ class RandomSearch:
         self,
         model: Type[BaseModel],
         param_distributions: Dict[
-            str, Any
+            str, Union[Sequence[Any], Distribution]
         ],  # values can be list (discrete) or tuple (continuous)
         n_iter: int = 10,
         cv: int = 5,
-    ):
+        ) -> None:
         """
         Random Search (Can be discrete or continuous hyperparameters)
         - model = The machine learning model class to be tuned
@@ -50,33 +51,17 @@ class RandomSearch:
             for key in keys:
                 values = self.param_distributions[key]
                 val: Union[int, float] = 0
-                if isinstance(values, list):  # this is for discrete
+
+                if isinstance(values, Distribution): # if distribution object, just call sample method
+                    val = values.sample()
+                else: # Fallback to just discrete sampling
                     val = np.random.choice(values)
-                elif (
-                    isinstance(values, tuple) and len(values) == 2
-                ):  # This is for continuous
-                    if values[0] > values[1]:
-                        raise ValueError(
-                            f"Invalid range for continuous parameter '{key}': {values}. Ensure the first value is less than or equal to the second."
-                        )
 
-                    if isinstance(values[0], int) and isinstance(values[1], int):
-                        val = np.random.randint(
-                            values[0], values[1] + 1
-                        )  # +1 to include upper bound
-                    else:
-                        val = np.random.uniform(values[0], values[1])
-
-                if isinstance(
-                    val, (np.integer, int)
-                ):  # convert to integer/float else numpy will show object dtypes
-                    combination[key] = int(
-                        val
-                    )  # because n_iterations needs to be integer
-                else:
-                    combination[key] = float(
-                        val
-                    )  # because learning rate and other params need to be float
+                # This is to ensure that numpy types are converted to native python types
+                if isinstance(val, (np.integer, int)): 
+                    combination[key] = int(val)
+                elif isinstance(val, (np.floating, float)):
+                    combination[key] = float(val)
 
             score = self._cross_validate(X, y, combination)
             self.results.append({"params": combination, "score": score})

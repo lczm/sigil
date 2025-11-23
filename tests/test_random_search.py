@@ -1,5 +1,6 @@
 from sigil.tuning import RandomSearch
 from sigil.linear import LinearRegression
+from sigil.distributions import Uniform, UniformInt
 import pytest
 import numpy as np
 
@@ -29,8 +30,8 @@ def test_random_search_continuous():
     Y = ((3 * X) + 10 + noise).flatten()
 
     params = {
-        "learning_rate": (0.0, 0.1),
-        "n_iterations": (500, 1000),
+        "learning_rate": Uniform(0.0, 0.1),
+        "n_iterations": UniformInt(500, 1000),
     }
 
     random_search = RandomSearch(LinearRegression, params, cv=5)
@@ -76,11 +77,8 @@ def test_random_search_invalid_range():
     # y = 3x + 10 + noise
     Y = ((3 * X) + 10 + noise).flatten()
 
-    params = {
-        "learning_rate": (0.5, 0.1),  # Invalid range
-        "n_iterations": (500, 1000),
-    }
-
     with pytest.raises(ValueError):
-        random_search = RandomSearch(LinearRegression, params, cv=5)
-        random_search.fit(X, Y)
+        params = {
+            "learning_rate": Uniform(0.5, 0.1),  # Invalid range
+            "n_iterations": (500, 1000),
+        }

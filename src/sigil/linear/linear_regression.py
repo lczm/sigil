@@ -21,7 +21,7 @@ class LinearRegression(BaseModel):
         - predict(X) = predicts the target values for given input data
     """
 
-    def __init__(self, learning_rate=0.01, n_iterations=1000, **kwargs) -> None:
+    def __init__(self, learning_rate:float=0.01, n_iterations:int=1000, **kwargs) -> None:
         """
         Initialize the Linear Regression model with learning rate and number of iterations.
         - learning_rate = How fast the model learns

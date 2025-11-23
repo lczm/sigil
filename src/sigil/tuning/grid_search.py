@@ -1,5 +1,5 @@
 from sigil.models import BaseModel
-from typing import Any, Dict, List, Type
+from typing import Any, Dict, List, Type, Sequence
 import itertools
 import numpy as np
 
@@ -8,7 +8,7 @@ class GridSearch:
     def __init__(
         self,
         model: Type[BaseModel],
-        param_grid: Dict[str, List[Any]],
+        param_grid: Dict[str, Sequence[Any]],
         cv: int = 5,
     ) -> None:
         """
