@@ -65,3 +65,13 @@ def test_step_not_fit():
 
     with pytest.raises(RuntimeError):
         model.step(X, y)
+
+
+def test_invalid_init_params():
+    with pytest.raises(ValueError):
+        LinearRegression(unknown_param=42)
+
+
+def test_invalid_multiple_init_params():
+    with pytest.raises(ValueError):
+        LinearRegression(learning_rate=0.01, n_iterations=1000, extra_param=5)

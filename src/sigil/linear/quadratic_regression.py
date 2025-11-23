@@ -11,7 +11,9 @@ class QuadraticRegression(BaseModel):
     Principles are the same as linear regression, but we introduce squared terms to capture non-linear relationships.
     """
 
-    def __init__(self, learning_rate=0.01, n_iterations=1000) -> None:
+    def __init__(
+        self, learning_rate: float = 0.01, n_iterations: int = 1000, **kwargs
+    ) -> None:
         """
         Initialize the Quadratic Regression model with learning rate and number of iterations.
         - learning_rate = How fast the model learns
@@ -22,6 +24,10 @@ class QuadraticRegression(BaseModel):
 
         The mean and std are stored to apply the same scaling in the predict method when used in the fit method
         """
+        if kwargs:
+            raise ValueError(
+                f"Unknown parameter(s) for QuadraticRegression: {list(kwargs.keys())}"
+            )
 
         self.learning_rate = learning_rate
         self.n_iterations = n_iterations
