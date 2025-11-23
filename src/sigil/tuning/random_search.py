@@ -13,7 +13,7 @@ class RandomSearch:
         ],  # values can be list (discrete) or tuple (continuous)
         n_iter: int = 10,
         cv: int = 5,
-        ) -> None:
+    ) -> None:
         """
         Random Search (Can be discrete or continuous hyperparameters)
         - model = The machine learning model class to be tuned
@@ -52,13 +52,15 @@ class RandomSearch:
                 values = self.param_distributions[key]
                 val: Union[int, float] = 0
 
-                if isinstance(values, Distribution): # if distribution object, just call sample method
+                if isinstance(
+                    values, Distribution
+                ):  # if distribution object, just call sample method
                     val = values.sample()
-                else: # Fallback to just discrete sampling
+                else:  # Fallback to just discrete sampling
                     val = np.random.choice(values)
 
                 # This is to ensure that numpy types are converted to native python types
-                if isinstance(val, (np.integer, int)): 
+                if isinstance(val, (np.integer, int)):
                     combination[key] = int(val)
                 elif isinstance(val, (np.floating, float)):
                     combination[key] = float(val)

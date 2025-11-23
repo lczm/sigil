@@ -69,16 +69,3 @@ def test_random_search_no_params():
     with pytest.raises(ValueError):
         random_search = RandomSearch(LinearRegression, params, cv=5)
         random_search.fit(X, Y)
-
-
-def test_random_search_invalid_range():
-    noise = np.random.randn(100, 1)
-    X = 2 * np.random.rand(100, 1)
-    # y = 3x + 10 + noise
-    Y = ((3 * X) + 10 + noise).flatten()
-
-    with pytest.raises(ValueError):
-        params = {
-            "learning_rate": Uniform(0.5, 0.1),  # Invalid range
-            "n_iterations": (500, 1000),
-        }

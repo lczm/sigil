@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Union
 
-class Distribution(ABC):
 
+class Distribution(ABC):
     @abstractmethod
     def sample(self) -> Union[int, float]:
         """

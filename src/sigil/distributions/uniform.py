@@ -1,9 +1,10 @@
 import numpy as np
-from .distributions import Distribution    
+from .distributions import Distribution
 from typing import Union
 
+
 class Uniform(Distribution):
-    def __init__(self, low: Union[int, float], high: Union[int,float]) -> None:
+    def __init__(self, low: Union[int, float], high: Union[int, float]) -> None:
         """
         Initialize the Uniform distribution with a range of values.
         """
@@ -13,10 +14,9 @@ class Uniform(Distribution):
 
         self.low = low
         self.high = high
-    
+
     def sample(self) -> float:
         """
         Sample from the Uniform distribution.
         """
         return np.random.uniform(self.low, self.high)
-

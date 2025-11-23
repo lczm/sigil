@@ -1,5 +1,6 @@
 import numpy as np
-from .distributions import Distribution    
+from .distributions import Distribution
+
 
 class UniformInt(Distribution):
     def __init__(self, low: int, high: int) -> None:
@@ -12,10 +13,9 @@ class UniformInt(Distribution):
 
         self.low = low
         self.high = high
-    
+
     def sample(self) -> int:
         """
         Sample from the Uniform distribution.
         """
         return np.random.randint(self.low, self.high)
-
