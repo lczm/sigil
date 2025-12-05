@@ -1,5 +1,5 @@
 import numpy as np
-from sigil.trees import DecisionTreeClassifier, DecisionTreeRegressor
+from sigil.tree import DecisionTreeClassifier, DecisionTreeRegressor
 
 X_classifier = np.array([[1, 2], [1.5, 1.8], [5, 6], [6, 7], [1, 0.5]])
 y_classifier = np.array([0, 0, 1, 1, 0])
